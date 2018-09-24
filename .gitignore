@@ -43,3 +43,4 @@ rsconnect/
 
 # Dropbox
 *.dropbox
+.Rproj.user
