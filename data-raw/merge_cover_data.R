@@ -18,28 +18,26 @@ cover <-
   group_by(species, plot , subplot ) %>% 
   filter( row_number(total) == which.max(total)) # take the max of the two rounds of cover per subplot 
 
-plot_cover <- 
+site_cover <- 
   cover %>% 
   group_by(plot, species) %>% 
-  summarise( avg_cover = mean(total)) %>% 
-  spread( species, avg_cover, fill = 0 )
+  rename( 'site' = plot) %>% 
+  summarise( cover = mean(total))
 
 subplot_cover <- 
   cover %>% 
-  unite(subplot, plot, subplot, sep = '.') %>% 
-  group_by( subplot, species ) %>% 
-  select(subplot, species, total ) %>% 
-  rename( 'cover' = total )  %>% 
-  spread( species, cover, fill = 0 )
+  select(plot, subplot, species, total ) %>% 
+  rename( 'cover' = total, 
+          'site' = plot)  
 
 microplot_cover <- 
   cover %>% 
   select( plot, subplot, LL, UR, species ) %>%
   gather( microplot, cover, LL, UR) %>%
-  unite( microplot ,  plot, subplot, microplot, sep = '.') %>% 
-  spread(species, cover , fill = 0)
+  rename( 'site' = plot) %>% 
+  select( site, subplot, microplot, species, cover )
 
-devtools::use_data(plot_cover, overwrite = T)
+devtools::use_data(site_cover, overwrite = T)
 devtools::use_data(subplot_cover, overwrite = T)
 devtools::use_data(microplot_cover, overwrite = T)
 
