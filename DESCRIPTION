@@ -4,6 +4,8 @@ Version: 0.0.0.9000
 Authors@R: person("Andrew", "Kleinhesselink", email = "arklein@ucla.edu", role = c("aut", "cre"))
 Description: Package contains data frames giving the cover of annual and herbaceous perennial plants from 24 sites from the Sedgwick Reserve, Santa Barbara County, CA, USA.  Data were collected in 2017 by Andrew Kleinhesselink as part of a research project in the Kraft Lab at UCLA. Data include visual estimates of percent cover of each species in 8 25 x 25 cm monitoring plots at each site.  Some data on the environment, light, soil moisture and temperature, are also included. 
 Depends: R (>= 3.4.4)
+Suggests: sedgwickspecies, sedgwicktraits
 License: GNU public
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.0.1
