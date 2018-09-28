@@ -1,5 +1,6 @@
 rm(list = ls())
 library(tidyverse)
+library(sedgwickspecies)
 
 cover1 <- read.csv( 'data-raw/2017_first_round_cover_data.csv')
 cover2 <- read.csv('data-raw/2017_second_round_cover_data.csv')
