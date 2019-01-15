@@ -38,9 +38,15 @@ microplot_cover <-
   rename( 'site' = plot) %>% 
   select( site, subplot, microplot, species, cover )
 
-devtools::use_data(site_cover, overwrite = T)
-devtools::use_data(subplot_cover, overwrite = T)
-devtools::use_data(microplot_cover, overwrite = T)
+# Check that all species are in the species list ------------------- # 
+site_cover[!site_cover$species %in% sedgwick_plants$calflora_binomial , ] 
+subplot_cover$species[!subplot_cover$species %in% sedgwick_plants$calflora_binomial ] 
+microplot_cover$species[!microplot_cover$species %in% sedgwick_plants$calflora_binomial  ]
+# ------------------------------------------------------------------- # 
+
+usethis::use_data(site_cover, overwrite = T)
+usethis::use_data(subplot_cover, overwrite = T)
+usethis::use_data(microplot_cover, overwrite = T)
 
 
 

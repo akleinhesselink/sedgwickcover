@@ -4,7 +4,7 @@ library(dplyr)
 library(tidyr)
 rm(list = ls())
 
-load('~/Dropbox/Sedgwick_cover_data/cover.data')
+# This is Broken
 
 env %>% filter( type == 'upper') %>% select(plot) %>% arrange(plot)
 #avg_cover <- avg_cover %>% filter(plot < 756)
