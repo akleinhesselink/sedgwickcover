@@ -12,52 +12,62 @@ cover[ is.na(cover)] <- 0
 
 cover <- 
   cover %>% 
-  rename( subplot = plot , plot = site )
-
-cover <- 
-  cover %>% 
-  group_by(species, plot , subplot ) %>% 
+  group_by(species, site, plot) %>% 
   filter( row_number(total) == which.max(total)) # take the max of the two rounds of cover per subplot 
 
 cover <- 
   cover %>% 
+  ungroup() %>% 
   left_join(sedgwick_plants %>% 
               bind_rows(read_csv('data-raw/cover_2017/special_names.csv')) %>% 
-              select(calflora_binomial, USDA_symbol), by = c('species' = 'calflora_binomial'))
+              select(calflora_binomial, USDA_symbol), by = c('species' = 'calflora_binomial')) %>% 
+  select( site, plot, USDA_symbol, total, LL, UR )
+
+cover <- 
+  expand.grid( USDA_symbol = unique( cover$USDA_symbol ), 
+             site = unique( cover$site ), 
+             plot = unique( cover$plot ) ) %>% 
+  left_join(cover) %>% 
+  mutate( total = ifelse( is.na( total ), 0, total )) 
 
 site_cover_2017 <- 
   cover %>% 
-  group_by(plot, USDA_symbol) %>% 
-  rename( 'site' = plot) %>% 
-  summarise(cover = mean(total)) %>% 
-  mutate( year = 2017, area_cm2 = 5*55*55) %>% 
-  select( year, site, area_cm2, USDA_symbol, cover )
+  group_by( site, USDA_symbol ) %>% 
+  summarise( n_plots = sum( total > 0 ), 
+             avg_cover = mean(total),
+             sd_cover = sd( total )) %>% 
+  mutate( area_cm2 = 5*(25*25), 
+          year = 2017) %>% 
+  select( year, site, area_cm2, USDA_symbol, n_plots, sd_cover, avg_cover)
+  
+### **NOTE** I'm reversing plot order in lower sites to match the plot order used 
+### in the 2019 sampling.  That is plots go from lowest plot to upper plot, except 
+## Nebraska (762) which is flat. 
 
 plot_cover_2017 <- 
   cover %>% 
-  ungroup() %>%
-  select(plot, subplot, USDA_symbol, total ) %>% 
-  rename( 'cover' = total, 
-          'site' = plot, 
-          'plot' = subplot)  %>% 
-  mutate( year = 2017, area_cm2 = 25*25 ) %>% 
-  select( year, site, plot, area_cm2, USDA_symbol, cover )
+  ungroup() %>% 
+  rename( 'cover' = total) %>% 
+  mutate( area_cm2 = 25*25, 
+          LL = ifelse( cover == 0 , 0, LL), 
+          UR = ifelse( cover == 0 , 0, UR ), 
+          year = 2017) %>% 
+  mutate( plot = ifelse( (site > 755) & site != 762, 6 - plot, plot )) %>% ### Reverse order of plots in lower sites 
+  select( year, site, plot, area_cm2, USDA_symbol, cover, LL, UR )
 
 subplot_cover_2017 <- 
-  cover %>% 
+  plot_cover_2017 %>% 
   ungroup() %>% 
-  select( plot, subplot, LL, UR, species, USDA_symbol ) %>%
-  gather( microplot, cover, LL, UR) %>%
-  rename( 'site' = plot) %>% 
-  rename( 'plot' = subplot ) %>% 
-  rename( 'subplot' = microplot )  %>% 
-  mutate( year = 2017, area_cm2 = 10*10) %>% 
+  select( year, site, plot, LL, UR, USDA_symbol ) %>%
+  gather( subplot, cover, LL, UR) %>% 
+  mutate( area_cm2 = 10*10) %>% 
+  mutate( plot = ifelse( (site > 755) & site != 762, 6 - plot, plot )) %>% ### Reverse order of plots in lower sites 
   select( year, site, plot, subplot, area_cm2, USDA_symbol, cover) 
   
 # Check that all species are in the species list ------------------- # 
-site_cover_2017[!site_cover_2017$USDA_symbol %in% sedgwick_plants$USDA_symbol , ] 
-plot_cover_2017[!plot_cover_2017$USDA_symbol %in% sedgwick_plants$USDA_symbol , ] 
-subplot_cover_2017[!subplot_cover_2017$USDA_symbol %in% sedgwick_plants$USDA_symbol,   ]
+site_cover_2017[!site_cover_2017$USDA_symbol %in% sedgwick_plants$USDA_symbol , ] %>% ungroup() %>% distinct(USDA_symbol)
+plot_cover_2017[!plot_cover_2017$USDA_symbol %in% sedgwick_plants$USDA_symbol , ] %>% ungroup() %>% distinct(USDA_symbol)
+subplot_cover_2017[!subplot_cover_2017$USDA_symbol %in% sedgwick_plants$USDA_symbol,   ]%>% ungroup() %>% distinct(USDA_symbol)
 # ------------------------------------------------------------------- # 
 
 usethis::use_data(site_cover_2017, overwrite = T)
