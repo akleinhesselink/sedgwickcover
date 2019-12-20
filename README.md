@@ -7,9 +7,10 @@
 
 <!-- badges: end -->
 
-![Agoseris](man/figures/IMG_20190420_111429.jpg) ***Agoseris
-heterophylla* and *Trifolium albopurpureum* among annual grasses in
-rocky serpentine grassland near site 745**
+![Agoseris](man/figures/IMG_20190420_111429.jpg)
+
+***Agoseris heterophylla* and *Trifolium albopurpureum* among annual
+grasses in rocky serpentine grassland near site 745**
 
 ## Overview:
 
@@ -23,7 +24,7 @@ UCLA](https://sites.lifesci.ucla.edu/eeb-kraft/).
 ![Map of 24 Sites](man/figures/README-sedgwick_map.png) **Sedgwick
 Map:** A) Map of all 24 sites across the reserve–only the lower sites
 are labeled. Sites labeled 740 to 763. B) Inset showing locations of
-upper sites.
+upper sites.  
 <!--sites mapped with the data-raw/map_sedgwick_ggmap.R script -->
 
 ## Installation
