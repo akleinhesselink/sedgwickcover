@@ -1,57 +1,53 @@
-#' Herbaceous plant cover from 24 sites at the UC Sedgwick Reserve.
+#' Spring 2017 average plant cover for each of the 24 study sites at Sedgwick.
 #'
-#' A data frame for average plant cover from 24 monitoring sites at 
-#' the UC Sedgwick Reserve in Santa Barbara Co. CA, USA. Data were collected in 
-#' the spring of 2017 by visually estimating percent cover in 5 25 x 25 cm subplots
-#' Cover is average cover across all plots. Cover estimates were made in mid-spring
-#' and late spring and the maximum cover per species per site was used. 
-#'
-#' @format A data frame with 397 rows and 5 variables:
+#' A dataframe of average cover for all vascular plant species found at each of the 24 
+#' study sites at the UC Sedgwick Reserve. Cover reported is simply an average of 
+#' cover across the five 25 x 25 cm sampling plots located at each site. Data collected 
+#' by Andy Kleinhesselink in April of 2017.'
+#' 
+#' @format A data frame with 2016 rows and 7 variables:
 #' \describe{
 #'   \item{year}{year of cover estimate}
 #'   \item{site}{site number, 740 to 763}
+#'   \item{area}{Total sample area in cm^2}
 #'   \item{USDA_symbol}{USDA symbol used to identify species}
-#'   \item{area_cm2}{Total sample area in cm^2}
-#'   \item{cover}{average cover of each species across the five subplots at each site}
+#'   \item{n_plot}{number of plots where the species was present in each site}
+#'   \item{sd_cover}{standard deviation of cover across the plots at each site}
+#'   \item{avg_cover}{average cover of species across the five plots at each site}
 #' }
 "site_cover_2017"
 
-#' Herbaceous plant cover from five subplots at 24 sites at the UC Sedgwick Reserve.
+#' Spring 2017 plant cover from sampling plots at each of the 24 sites at Sedgwick.
 #'
-#' A dataframe for plant cover from five subplots at each of 24 sites at
-#' the UC Sedgwick Reserve in Santa Barbara Co. CA, USA. Data were collected in 
-#' the spring of 2017 by visually estimating percent cover in each of 5 25 x 25 cm 
-#' subplots at each site. Cover estimates were made in mid-spring
-#' and late spring and the maximum cover per species per site is reported. 
+#' A dataframe of cover estimates for all vascular plant species found in five
+#' 20 x 20 cm plots located along a 10 m transect at each of the 24 study sites at 
+#' the UC Sedgwick Reserve. Data collected by Andy Kleinhesselink in April of 2017. 
 #'
-#' @format A data frame with 1973 rows and 6 variables:
+#' @format A data frame with 10080 rows and 8 variables:
 #' \describe{
 #'   \item{year}{year of cover estimate}
 #'   \item{site}{site number, 740 to 763}
 #'   \item{plot}{plot number, 1 to 5}
 #'   \item{USDA_symbol}{USDA symbol used to identify species}
-#'   \item{area_cm2}{Total sample area in cm^2}
-#'   \item{cover}{cover of each species per plot}
+#'   \item{area}{Sample area in cm^2}
+#'   \item{cover}{estimated cover of each species in each plot}
 #' }
 "plot_cover_2017"
 
-#' Herbaceous plant cover from two microplots in each of five subplots at 24 sites at the UC Sedgwick Reserve.
+#' Spring 2017 plant cover from microplots at Sedgwick.
 #'
-#' A dataframe for average plant cover from two microplots per each of the 
-#' five subplots at each of the 24 sites at Sedgwick the UC Sedgwick Reserve in 
-#' Santa Barbara Co. CA, USA. Data were collected in the spring of 2017 by 
-#' visually estimating percent cover in two 10 x 10 cm microplots within each
-#' 25 x 25 cm subplot at each site. Cover estimates were made in mid-spring
-#' and late spring and the maximum cover per species per site is reported. 
+#' A dataframe of cover estimates for all vascular plant species found in 
+#' 10 x 10 cm microplots nested within each plot at each of the 24 sampling sites
+#' at the UC Sedgwick Reserve. Data collected by Andy Kleinhesselink in April of 2017. 
 #'
-#' @format A data frame with 3946 rows and 7 variables:
+#' @format A data frame with 20170 rows and 7 variables:
 #' \describe{
 #'   \item{year}{year of cover estimate}
 #'   \item{site}{Site number 740 to 763.}
 #'   \item{plot}{plot number, 1 to 5}
 #'   \item{subplot}{Subplot within each subplot, identified as LL and UR, lower left and upper right respectively.}
+#'   \item{area}{Total sample area in cm^2}
 #'   \item{USDA_symbol}{USDA symbol used to identify species}
-#'   \item{area_cm2}{Total sample area in cm^2}
 #'   \item{cover}{cover of each species per plot}
 #' }
 "subplot_cover_2017"

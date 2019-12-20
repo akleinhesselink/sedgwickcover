@@ -36,9 +36,10 @@ site_cover_2017 <-
   summarise( n_plots = sum( total > 0 ), 
              avg_cover = mean(total),
              sd_cover = sd( total )) %>% 
-  mutate( area_cm2 = 5*(25*25), 
+  mutate( area = 5*(25*25), 
           year = 2017) %>% 
-  select( year, site, area_cm2, USDA_symbol, n_plots, sd_cover, avg_cover)
+  select( year, site, area, USDA_symbol, n_plots, sd_cover, avg_cover) %>% 
+  as.data.frame()
   
 ### **NOTE** I'm reversing plot order in lower sites to match the plot order used 
 ### in the 2019 sampling.  That is plots go from lowest plot to upper plot, except 
@@ -48,21 +49,23 @@ plot_cover_2017 <-
   cover %>% 
   ungroup() %>% 
   rename( 'cover' = total) %>% 
-  mutate( area_cm2 = 25*25, 
+  mutate( area = 25*25, 
           LL = ifelse( cover == 0 , 0, LL), 
           UR = ifelse( cover == 0 , 0, UR ), 
           year = 2017) %>% 
   mutate( plot = ifelse( (site > 755) & site != 762, 6 - plot, plot )) %>% ### Reverse order of plots in lower sites 
-  select( year, site, plot, area_cm2, USDA_symbol, cover, LL, UR )
+  select( year, site, plot, area, USDA_symbol, cover, LL, UR ) %>% 
+  as.data.frame()
 
 subplot_cover_2017 <- 
   plot_cover_2017 %>% 
   ungroup() %>% 
   select( year, site, plot, LL, UR, USDA_symbol ) %>%
   gather( subplot, cover, LL, UR) %>% 
-  mutate( area_cm2 = 10*10) %>% 
+  mutate( area = 10*10) %>% 
   mutate( plot = ifelse( (site > 755) & site != 762, 6 - plot, plot )) %>% ### Reverse order of plots in lower sites 
-  select( year, site, plot, subplot, area_cm2, USDA_symbol, cover) 
+  select( year, site, plot, subplot, area, USDA_symbol, cover) %>% 
+  as.data.frame()
   
 # Check that all species are in the species list ------------------- # 
 site_cover_2017[!site_cover_2017$USDA_symbol %in% sedgwick_plants$USDA_symbol , ] %>% ungroup() %>% distinct(USDA_symbol)

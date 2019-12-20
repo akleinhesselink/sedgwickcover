@@ -3,23 +3,24 @@
 \docType{data}
 \name{site_cover_2017}
 \alias{site_cover_2017}
-\title{Herbaceous plant cover from 24 sites at the UC Sedgwick Reserve.}
-\format{A data frame with 397 rows and 5 variables:
+\title{Spring 2017 average plant cover for each of the 24 study sites at Sedgwick.}
+\format{A data frame with 2016 rows and 7 variables:
 \describe{
   \item{year}{year of cover estimate}
   \item{site}{site number, 740 to 763}
+  \item{area}{Total sample area in cm^2}
   \item{USDA_symbol}{USDA symbol used to identify species}
-  \item{area_cm2}{Total sample area in cm^2}
-  \item{cover}{average cover of each species across the five subplots at each site}
+  \item{n_plot}{number of plots where the species was present in each site}
+  \item{sd_cover}{standard deviation of cover across the plots at each site}
+  \item{avg_cover}{average cover of species across the five plots at each site}
 }}
 \usage{
 site_cover_2017
 }
 \description{
-A data frame for average plant cover from 24 monitoring sites at 
-the UC Sedgwick Reserve in Santa Barbara Co. CA, USA. Data were collected in 
-the spring of 2017 by visually estimating percent cover in 5 25 x 25 cm subplots
-Cover is average cover across all plots. Cover estimates were made in mid-spring
-and late spring and the maximum cover per species per site was used.
+A dataframe of average cover for all vascular plant species found at each of the 24 
+study sites at the UC Sedgwick Reserve. Cover reported is simply an average of 
+cover across the five 25 x 25 cm sampling plots located at each site. Data collected 
+by Andy Kleinhesselink in April of 2017.'
 }
 \keyword{datasets}

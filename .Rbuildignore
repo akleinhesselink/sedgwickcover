@@ -5,3 +5,5 @@
 ^doc/
 ^figures/
 ^data-raw/
+^README\.Rmd$
+^LICENSE\.md$

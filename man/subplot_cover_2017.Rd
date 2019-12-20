@@ -3,26 +3,23 @@
 \docType{data}
 \name{subplot_cover_2017}
 \alias{subplot_cover_2017}
-\title{Herbaceous plant cover from two microplots in each of five subplots at 24 sites at the UC Sedgwick Reserve.}
-\format{A data frame with 3946 rows and 7 variables:
+\title{Spring 2017 plant cover from microplots at Sedgwick.}
+\format{A data frame with 20170 rows and 7 variables:
 \describe{
   \item{year}{year of cover estimate}
   \item{site}{Site number 740 to 763.}
   \item{plot}{plot number, 1 to 5}
   \item{subplot}{Subplot within each subplot, identified as LL and UR, lower left and upper right respectively.}
+  \item{area}{Total sample area in cm^2}
   \item{USDA_symbol}{USDA symbol used to identify species}
-  \item{area_cm2}{Total sample area in cm^2}
   \item{cover}{cover of each species per plot}
 }}
 \usage{
 subplot_cover_2017
 }
 \description{
-A dataframe for average plant cover from two microplots per each of the 
-five subplots at each of the 24 sites at Sedgwick the UC Sedgwick Reserve in 
-Santa Barbara Co. CA, USA. Data were collected in the spring of 2017 by 
-visually estimating percent cover in two 10 x 10 cm microplots within each
-25 x 25 cm subplot at each site. Cover estimates were made in mid-spring
-and late spring and the maximum cover per species per site is reported.
+A dataframe of cover estimates for all vascular plant species found in 
+10 x 10 cm microplots nested within each plot at each of the 24 sampling sites
+at the UC Sedgwick Reserve. Data collected by Andy Kleinhesselink in April of 2017.
 }
 \keyword{datasets}
