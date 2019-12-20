@@ -7,6 +7,10 @@
 
 <!-- badges: end -->
 
+![Agoseris](man/figures/IMG_20190420_111429.jpg) ***Agoseris
+heterophylla* and *Trifolium albopurpureum* among annual grasses in
+rocky serpentine grassland near site 745**
+
 ## Overview:
 
 This is an R data package with vascular plant cover and density at 24
@@ -35,5 +39,16 @@ devtools::install_github("akleinhesselink/sedgwickcover")
 
 `library(sedgwickenv)` will load the following datasets:
 
-  - **sedgwick\_cover**: dataframe with cover and density data from 5
-    sampling plots at each of the 24 sites
+  - **site\_cover\_2019**: dataframe with average cover and total
+    abundance of vascular plants at each of the 24 sites in the spring
+    of 2019
+  - **plot\_cover\_2019**: dataframe with cover and density of vascular
+    plants in 5 sampling plots at each of the 24 sites in the spring of
+    2019
+  - **site\_cover\_2017**: dataframe with average cover of vascular
+    plants at each of the 24 sites in the spring of 2017
+  - **plot\_cover\_2017**: dataframe with cover of vascular plants in 5
+    sampling plots at each of the 24 sites in the spring of 2017
+  - **microplot\_cover\_2017**: dataframe with cover of vascular plants
+    in 2 microplots nested within each fo the 5 sampling plots at each
+    of the 24 sites in the spring of 2017

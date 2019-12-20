@@ -57,7 +57,7 @@ plot_cover_2017 <-
   select( year, site, plot, area, USDA_symbol, cover, LL, UR ) %>% 
   as.data.frame()
 
-subplot_cover_2017 <- 
+microplot_cover_2017 <- 
   plot_cover_2017 %>% 
   ungroup() %>% 
   select( year, site, plot, LL, UR, USDA_symbol ) %>%
@@ -66,16 +66,20 @@ subplot_cover_2017 <-
   mutate( plot = ifelse( (site > 755) & site != 762, 6 - plot, plot )) %>% ### Reverse order of plots in lower sites 
   select( year, site, plot, subplot, area, USDA_symbol, cover) %>% 
   as.data.frame()
+
+plot_cover_2017 <- 
+  plot_cover_2017 %>% 
+  select( - LL, -UR)
   
 # Check that all species are in the species list ------------------- # 
 site_cover_2017[!site_cover_2017$USDA_symbol %in% sedgwick_plants$USDA_symbol , ] %>% ungroup() %>% distinct(USDA_symbol)
 plot_cover_2017[!plot_cover_2017$USDA_symbol %in% sedgwick_plants$USDA_symbol , ] %>% ungroup() %>% distinct(USDA_symbol)
-subplot_cover_2017[!subplot_cover_2017$USDA_symbol %in% sedgwick_plants$USDA_symbol,   ]%>% ungroup() %>% distinct(USDA_symbol)
+microplot_cover_2017[!microplot_cover_2017$USDA_symbol %in% sedgwick_plants$USDA_symbol,   ]%>% ungroup() %>% distinct(USDA_symbol)
 # ------------------------------------------------------------------- # 
 
 usethis::use_data(site_cover_2017, overwrite = T)
 usethis::use_data(plot_cover_2017, overwrite = T)
-usethis::use_data(subplot_cover_2017, overwrite = T)
+usethis::use_data(microplot_cover_2017, overwrite = T)
 
 
 # subplot_counts <- 

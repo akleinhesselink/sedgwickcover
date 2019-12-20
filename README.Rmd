@@ -18,6 +18,9 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
+![Agoseris](man/figures/IMG_20190420_111429.jpg)
+__*Agoseris heterophylla* and *Trifolium albopurpureum* among annual grasses in rocky serpentine grassland near site 745__
+
 ## Overview: 
 
 This is an R data package with vascular plant cover and density at 24 study sites located across the [University of California Sedgwick Reserve](https://sedgwick.nrs.ucsb.edu/) in Santa Barbara County, California. These sites are the focus of demographic and community functional trait studies in the [Kraft Lab at UCLA](https://sites.lifesci.ucla.edu/eeb-kraft/).     
@@ -39,4 +42,8 @@ devtools::install_github("akleinhesselink/sedgwickcover")
 
 `library(sedgwickenv)` will load the following datasets:
 
-* __sedgwick_cover__: dataframe with cover and density data from 5 sampling plots at each of the 24 sites
+* __site_cover_2019__: dataframe with average cover and total abundance of vascular plants at each of the 24 sites in the spring of 2019 
+* __plot_cover_2019__: dataframe with cover and density of vascular plants in 5 sampling plots at each of the 24 sites in the spring of 2019
+* __site_cover_2017__: dataframe with average cover of vascular plants at each of the 24 sites in the spring of 2017 
+* __plot_cover_2017__: dataframe with cover of vascular plants in 5 sampling plots at each of the 24 sites in the spring of 2017 
+* __microplot_cover_2017__: dataframe with cover of vascular plants in 2 microplots nested within each fo the 5 sampling plots at each of the 24 sites in the spring of 2017  

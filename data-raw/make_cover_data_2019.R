@@ -2,8 +2,6 @@ rm(list = ls())
 library(tidyverse)
 library(readxl)
 library(sedgwickspecies)
-library(lme4)
-library(optimx)
 
 my_path <-  'data-raw/cover_2019'
 my_files <- dir(my_path, full.names = T, pattern = '*7[0-9]{2}')
@@ -26,10 +24,10 @@ subplot_early <-
   left_join(read_csv('data-raw/cover_2019/subplot_early_codes.csv'), by = 'species') %>% 
   left_join(sedgwick_plants, by = 'USDA_symbol')  %>% 
   pivot_wider( names_from = type, values_from = value ) %>% 
-  mutate( area_cm2 = 15*15, 
+  mutate( area = 15*15, 
           year = 2019, 
           type = 'subplot') %>% 
-  select( year, site, plot, round, type, area_cm2, USDA_symbol, cover, count) 
+  select( year, site, plot, round, type, area, USDA_symbol, cover, count) 
   
 # Early round wholeplot -------------------------------------------------------- # 
 wholeplot_early_files <- my_files[ str_detect(my_files, 'wholeplot.xlsx')]
@@ -48,10 +46,10 @@ wholeplot_early <-
   left_join(read_csv('data-raw/cover_2019/whole_plot_early_codes.csv'), by = 'species') %>% 
   left_join(sedgwick_plants, by = 'USDA_symbol') %>% 
   pivot_wider( names_from = type, values_from = value ) %>% 
-  mutate( area_cm2 = 55*55, 
+  mutate( area = 55*55, 
           year = 2019, 
           type = 'wholeplot') %>% 
-  select( year, site, plot, round, type, area_cm2, USDA_symbol, cover, count ) 
+  select( year, site, plot, round, type, area, USDA_symbol, cover, count ) 
 
 # Late round wholeplot -------------------------------------------------------- # 
 wholeplot_late_files <- my_files[ str_detect(my_files, 'wholeplot_late.xlsx')]
@@ -71,10 +69,10 @@ wholeplot_late <-
   left_join(read_csv('data-raw/cover_2019/whole_plot_late_codes.csv')) %>% 
   left_join(sedgwick_plants, by= 'USDA_symbol' ) %>% 
   pivot_wider( names_from = type, values_from = value) %>% 
-  mutate( area_cm2 = 55*55, 
+  mutate( area = 55*55, 
           year = 2019, 
           type = 'wholeplot') %>% 
-  select( year, site, plot, round, type, area_cm2, USDA_symbol, cover, count) 
+  select( year, site, plot, round, type, area, USDA_symbol, cover, count) 
 
 
 # --------------------------------------------------------- #   
@@ -87,7 +85,7 @@ wholeplot_late <-
 
 subplot_density <-   
   subplot_early %>% 
-  mutate( subplot_density = count/area_cm2 )  %>% 
+  mutate( subplot_density = count/area )  %>% 
   select( year, round, site, plot, USDA_symbol, subplot_density) %>% 
   mutate( site = as.numeric(site), plot = as.numeric(plot)) 
 
@@ -97,16 +95,16 @@ all_data <-
     wholeplot_late) %>% 
   mutate( site = as.numeric(site), plot = as.numeric(plot)) %>% 
   left_join(subplot_density) %>% 
-  mutate( estimated_count = subplot_density*area_cm2 ) %>% 
+  mutate( estimated_count = subplot_density*area ) %>% 
   mutate( cover = ifelse( is.na(cover), 0 , cover )) %>% 
-  group_by( year, site, plot, type, area_cm2, USDA_symbol ) %>% 
+  group_by( year, site, plot, type, area, USDA_symbol ) %>% 
   filter( cover == max(cover) & (!is.na(count) | !is.na(estimated_count)) ) %>% 
   ungroup() 
   
 final_data <- 
   expand.grid( 
   year = unique(all_data$year), 
-  area_cm2 = unique(all_data$area_cm2),
+  area = unique(all_data$area),
   type = unique(all_data$type),
   site = as.numeric( unique( all_data$site)), 
   plot = as.numeric(unique( all_data$plot)), 
@@ -132,24 +130,24 @@ final_data <-
 
 final_data <- 
   final_data %>% 
-  group_by( year, area_cm2, site, plot, USDA_symbol) %>% 
+  group_by( year, area, site, plot, USDA_symbol) %>% 
   filter( row_number() == 1) %>% 
   select( - type , - round, - subplot_density) 
 
 # --------- Prepare final dataframes for export --------------------------- # 
 site_cover_2019 <- 
   final_data %>% 
-  select( year, area_cm2, site, plot, USDA_symbol, cover, count ) %>% 
+  select( year, area, site, plot, USDA_symbol, cover, count ) %>% 
   group_by( year, site, USDA_symbol) %>%
-  summarise( area_cm2 = sum(area_cm2), tot_count = sum(count), avg_cover = mean(cover), sd_cover = sd(cover), sd_count = sd(count), n_plots = sum(cover > 0 )) %>% 
-  select(year, site, area_cm2, USDA_symbol, n_plots, sd_cover, avg_cover, tot_count, sd_count) %>% 
+  summarise( area = sum(area), tot_count = sum(count), avg_cover = mean(cover), sd_cover = sd(cover), sd_count = sd(count), n_plots = sum(cover > 0 )) %>% 
+  select(year, site, area, USDA_symbol, n_plots, sd_cover, avg_cover, tot_count, sd_count) %>% 
   ungroup() %>% 
   as.data.frame()
 
 plot_cover_2019 <- 
   final_data %>% 
   ungroup() %>% 
-  select( year, site, plot, area_cm2, USDA_symbol, cover, count_type, count)  %>% 
+  select( year, site, plot, area, USDA_symbol, cover, count_type, count)  %>% 
   as.data.frame()
 
 # Check that all species are in the species list ------------------- # 

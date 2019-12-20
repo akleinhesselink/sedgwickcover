@@ -3,8 +3,8 @@
 \docType{data}
 \name{plot_cover_2017}
 \alias{plot_cover_2017}
-\title{Spring 2017 plant cover from sampling plots at each of the 24 sites at Sedgwick.}
-\format{A data frame with 10080 rows and 8 variables:
+\title{Spring 2017 plant cover from sampling plots at 24 sites at Sedgwick}
+\format{A data frame with 10080 rows and 6 variables:
 \describe{
   \item{year}{year of cover estimate}
   \item{site}{site number, 740 to 763}
@@ -17,8 +17,8 @@
 plot_cover_2017
 }
 \description{
-A dataframe of cover estimates for all vascular plant species found in five
-20 x 20 cm plots located along a 10 m transect at each of the 24 study sites at 
-the UC Sedgwick Reserve. Data collected by Andy Kleinhesselink in April of 2017.
+A dataframe of cover estimates for all vascular plant species found in 25 x 25 cm
+sampling plots at the UC Sedgwick Reserve. There are five plots at each of the 
+24 study sites (n = 120). Data collected by Andy Kleinhesselink in April of 2017.
 }
 \keyword{datasets}
